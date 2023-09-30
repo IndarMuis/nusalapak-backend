@@ -1,11 +1,9 @@
 package com.nusalapak.repository;
 
-import com.nusalapak.entity.Seller;
+import com.nusalapak.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 @Repository
-public interface SellerRepository extends JpaRepository<Seller, UUID> {
+public interface RoleRepository extends JpaRepository<Role, Integer> {
 }
