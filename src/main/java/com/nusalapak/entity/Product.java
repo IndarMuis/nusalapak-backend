@@ -24,7 +24,7 @@ public class Product {
     @Column(nullable = false, columnDefinition = "varchar(200)")
     private String name;
 
-    @Column(scale = 2, nullable = false, columnDefinition = "DECIMAL DEFAULT 0.0")
+    @Column(columnDefinition = "DECIMAL(10,2) DEFAULT 0.00")
     private Double price;
 
     @Column(columnDefinition = "text")
