@@ -1,0 +1,97 @@
+@startuml
+
+entity Accounts {
+    *id: NUMBER NOT NULL
+    --
+    email: VARCHAR NOT NULL
+    password: VARCHAR NOT NULL
+    role: ENUM('SELLER', 'CUSTOMER', 'ADMIN')
+}
+
+entity Customers {
+    *id: NUMBER NOT NULL
+    --
+    account_id: NUMBER NOT NULL <<FK>>
+    --
+    name: VARCHAR NOT NULL
+    phone: VARCHAR
+    address: VARCHAR NOT NULL
+}
+
+entity Sellers {
+    *id: NUMBER NOT NULL
+    --
+    account_id NUMBER NOT NULL <<FK>>
+    --
+    name: VARCHAR NOT NULL
+    phone: VARCHAR
+    address: VARCHAR NOT NULL
+}
+
+entity Products {
+    *id: NUMBER NOT NULL
+    --
+    seller_id: NUMBER NOT NULL <<FK>>
+    product_category_id: NUMBER NOT NULL <<FK>>
+    --
+    name: VARCHAR NOT NULL
+    price: DOUBLE NOT NULL,
+    description: TEXT
+}
+
+entity Orders {
+    *id: NUMBER NOT NULL
+    --
+    seller_id: NUMBER NOT NULL <<FK>>
+    method_payment_id: NUMBER NOT NULL <<FK>>
+    courier_id: NUMBER NOT NULL <<FK>>
+    --
+    date: TIMESTAMP NOT NULL
+    total_payment_price: DOUBLE NOT NULL
+    total_shipping_price: DOUBLE NOT NULL
+    total_admin_price: DOUBLE NOT NULL
+}
+
+entity OrderDetails {
+    product_id: NUMBER NOT NULL <<FK>>
+    order_id: NUMBER NOT NULL <<FK>>
+    --
+    quantity: NUMBER NOT NULL
+}
+
+entity ProductCategories {
+    *id: NUMBER NOT NULL
+    --
+    name: VARCHAR NOT NULL
+}
+
+entity Couriers {
+    * id: NUMBER NOT NULL
+    --
+    name: VARCHAR NOT NULL
+}
+entity PaymentMethod {
+    * id: NUMBER NOT NULL
+    --
+    name: VARCHAR NOT NULL
+}
+
+Customers ||--|| Accounts
+Sellers ||--|| Accounts
+
+Customers ||--o{ Orders
+Sellers ||--o{ Products
+
+PaymentMethod ||--o{ Orders
+Couriers ||--o{ Orders
+
+OrderDetails }|--|| Orders
+
+ProductCategories ||--|{ Products
+
+
+'UPDATE
+'1. WISHLIST
+'2. REVIEWS
+
+@enduml

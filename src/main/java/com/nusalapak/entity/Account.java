@@ -1,5 +1,7 @@
 package com.nusalapak.entity;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "accounts", indexes = @Index(name = "idx_email", columnList = "email"))
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Account {
 
     @Id
@@ -23,6 +25,9 @@ public class Account {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private boolean isEnabled;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

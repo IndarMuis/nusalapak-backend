@@ -19,6 +19,7 @@ public class ResponseTemplate<T> {
     private Integer code;
     private String status;
     private String message;
+    private String errors;
     private T data;
 
 }
