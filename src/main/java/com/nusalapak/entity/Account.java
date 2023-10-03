@@ -1,10 +1,9 @@
 package com.nusalapak.entity;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Setter
@@ -13,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@Table(name = "accounts", indexes = @Index(name = "email", columnList = "email"))
 public class Account {
 
     @Id
@@ -32,5 +31,8 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    private Set<Authority> authorities;
 
 }

@@ -29,31 +29,27 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public void create(CreateSellerRequest request) {
 
-        try {
-            Role role = roleRepository.findById(2).orElseThrow(
-                    () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "role is not found")
-            );
+        Role role = roleRepository.findById(2).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "role is not found")
+        );
 
-            String encodePassword = passwordEncoder.encode(request.getPassword());
-            Account account = Account.builder()
-                    .email(request.getEmail())
-                    .password(encodePassword)
-                    .isEnabled(true)
-                    .role(role)
-                    .build();
+        String encodePassword = passwordEncoder.encode(request.getPassword());
+        Account account = Account.builder()
+                .email(request.getEmail())
+                .password(encodePassword)
+                .isEnabled(true)
+                .role(role)
+                .build();
 
-            accountRepository.save(account);
+        accountRepository.save(account);
 
-            Seller seller = new Seller();
-            seller.setName(request.getName());
-            seller.setPhone(request.getPhone());
-            seller.setAddress(request.getAddress());
-            seller.setAccount(account);
+        Seller seller = new Seller();
+        seller.setName(request.getName());
+        seller.setPhone(request.getPhone());
+        seller.setAddress(request.getAddress());
+        seller.setAccount(account);
 
-            sellerRepository.save(seller);
-        } catch (Exception exc) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "internal server error");
-        }
+        sellerRepository.save(seller);
 
     }
 }
