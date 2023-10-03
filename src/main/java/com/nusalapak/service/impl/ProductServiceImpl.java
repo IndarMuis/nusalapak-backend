@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -31,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public ProductCreateResponse addProduct(ProductCreateRequest request) {
-        System.out.println("PRODUCT SERVICE");
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
@@ -40,10 +42,14 @@ public class ProductServiceImpl implements ProductService {
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "seller not found")
                 );
 
-        ProductCategory productCategory = productCategoryRepository.findById(request.getCategoryId())
-                .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "category not found")
-                );
+        if (productRepository.existsProductBySellerIdAndName(seller.getId(), request.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "product is already on the list");
+        }
+
+            ProductCategory productCategory = productCategoryRepository.findById(request.getCategoryId())
+                    .orElseThrow(
+                            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "category not found")
+                    );
 
         Product product = Product.builder()
                 .name(request.getName())

@@ -9,6 +9,6 @@ import java.util.UUID;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, UUID> {
 
-    boolean existsProductBySellerId(UUID sellerId);
+    boolean existsProductBySellerIdAndName(UUID sellerId, String name);
 
 }
