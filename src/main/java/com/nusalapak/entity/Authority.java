@@ -8,8 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
-@Table(name = "authorities")
+//@Entity
+//@Table(name = "authorities")
 public class Authority {
 
     @Id

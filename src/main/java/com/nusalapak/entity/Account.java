@@ -32,7 +32,7 @@ public class Account {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-    private Set<Authority> authorities;
+//    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+//    private Set<Authority> authorities;
 
 }

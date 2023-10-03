@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -28,7 +29,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountRepository.findByEmail(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid email or password"));
-        return new User(account.getEmail(), account.getPassword(), mapAuthorityToGrantedAuthority(account.getAuthorities()));
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(account.getRole().getName()));
+        return new User(account.getEmail(), account.getPassword(), authorities);
     }
 
     private Collection<GrantedAuthority> mapAuthorityToGrantedAuthority(Set<Authority> authorities) {
