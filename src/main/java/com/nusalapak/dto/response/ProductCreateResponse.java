@@ -1,6 +1,8 @@
 package com.nusalapak.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,10 +14,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class AccountResponse {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ProductCreateResponse {
 
-    private String email;
+    private String name;
 
-    private String roles;
+    private String description;
+
+    private String price;
+
+    private String category;
+
+    private String seller;
 
 }

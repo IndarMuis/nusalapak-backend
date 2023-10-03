@@ -56,7 +56,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private String getTokenFromHeader(HttpServletRequest request) {
-        logger.info("TESS");
         String bearerToken = request.getHeader(SecurityConstants.TOKEN_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(SecurityConstants.JWT_PREFIX)) {
             return bearerToken.substring(SecurityConstants.JWT_PREFIX.length());

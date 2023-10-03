@@ -1,9 +1,9 @@
 package com.nusalapak.service;
 
-import com.nusalapak.dto.response.AccountResponse;
+import com.nusalapak.dto.response.AccountDetailResponse;
 
 public interface AccountService {
 
-    AccountResponse findByEmail(String email);
+    AccountDetailResponse findByEmail(String email);
 
 }

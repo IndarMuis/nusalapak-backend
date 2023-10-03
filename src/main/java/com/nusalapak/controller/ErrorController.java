@@ -4,14 +4,15 @@ import com.nusalapak.dto.response.ResponseTemplate;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
-public class ExceptionController extends ResponseEntityExceptionHandler {
+public class ErrorController extends ResponseEntityExceptionHandler {
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ResponseTemplate<?>> constraintViolationException(ConstraintViolationException exc) {
         ResponseTemplate<?> response = ResponseTemplate.builder()
                 .message("Error")
@@ -20,7 +21,7 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
         return ResponseEntity.badRequest().body(response);
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(ResponseStatusException.class)
+    @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<ResponseTemplate<?>> responseStatusException(ResponseStatusException exc) {
         ResponseTemplate<?> response = ResponseTemplate.builder()
                 .message("Error")

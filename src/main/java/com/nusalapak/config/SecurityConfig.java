@@ -56,11 +56,11 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/test").hasAuthority("SELLER")
-                        .requestMatchers("/products",
-                                "/api/v1/sellers/register",
-                                "/api/v1/auth/login"
-                        ).permitAll())
+                        .requestMatchers("/api/v1/products/create").hasAuthority("SELLER")
+                        .requestMatchers("/api/v1/seller/register",
+                                "/api/v1/account/login").permitAll()
+                        .anyRequest().permitAll()
+                )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(Customizer.withDefaults());
 

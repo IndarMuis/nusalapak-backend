@@ -29,6 +29,10 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public void create(CreateSellerRequest request) {
 
+        if (!accountRepository.existsByEmail(request.getEmail())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "email is registered");
+        }
+
         Role role = roleRepository.findById(2).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "role is not found")
         );
