@@ -3,7 +3,7 @@ package com.nusalapak.controller;
 import com.nusalapak.dto.request.CreateSellerRequest;
 import com.nusalapak.dto.request.ProductCreateRequest;
 import com.nusalapak.dto.response.ProductCreateResponse;
-import com.nusalapak.dto.response.ResponseTemplate;
+import com.nusalapak.dto.response.WebResponse;
 import com.nusalapak.service.ProductService;
 import com.nusalapak.service.SellerService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/api/v1/seller")
+@RequestMapping(path = "/api/v1/sellers")
 public class SellerController {
 
     private final SellerService sellerService;
@@ -28,11 +28,11 @@ public class SellerController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<ResponseTemplate<?>> register(@RequestBody CreateSellerRequest request) {
+    public ResponseEntity<WebResponse<?>> register(@RequestBody CreateSellerRequest request) {
 
         sellerService.create(request);
 
-        ResponseTemplate<?> response = ResponseTemplate.builder()
+        WebResponse<?> response = WebResponse.builder()
                 .code(HttpStatus.CREATED.value())
                 .status("Success")
                 .build();
@@ -42,12 +42,12 @@ public class SellerController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseTemplate<?>> addProduct(@RequestBody ProductCreateRequest request) {
+    public ResponseEntity<WebResponse<?>> addProduct(@RequestBody ProductCreateRequest request) {
 
         ProductCreateResponse productResponse = productService.addProduct(request);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ResponseTemplate.builder()
+                .body(WebResponse.builder()
                         .code(HttpStatus.CREATED.value())
                         .message("Success")
                         .data(productResponse)

@@ -2,7 +2,7 @@ package com.nusalapak.controller;
 
 import com.nusalapak.dto.request.LoginRequest;
 import com.nusalapak.dto.response.AccountLoginResponse;
-import com.nusalapak.dto.response.ResponseTemplate;
+import com.nusalapak.dto.response.WebResponse;
 import com.nusalapak.security.jwt.JwtService;
 import com.nusalapak.service.impl.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/account")
+@RequestMapping("/api/v1/accounts")
 public class AccountController {
 
     private final JwtService jwtService;
@@ -29,7 +29,7 @@ public class AccountController {
     private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseTemplate<?>> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<WebResponse<?>> login(@RequestBody LoginRequest request) {
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
         if (!passwordEncoder.matches(request.getPassword(), userDetails.getPassword())) {
@@ -44,7 +44,7 @@ public class AccountController {
                 .accessToken(jwtService.generateToken(authentication)).build();
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ResponseTemplate.builder()
+                .body(WebResponse.builder()
                         .code(HttpStatus.OK.value())
                         .status("Success")
                         .data(response).build()

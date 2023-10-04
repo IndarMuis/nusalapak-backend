@@ -1,6 +1,6 @@
 package com.nusalapak.controller;
 
-import com.nusalapak.dto.response.ResponseTemplate;
+import com.nusalapak.dto.response.WebResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +13,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ErrorController extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ResponseTemplate<?>> constraintViolationException(ConstraintViolationException exc) {
-        ResponseTemplate<?> response = ResponseTemplate.builder()
+    public ResponseEntity<WebResponse<?>> constraintViolationException(ConstraintViolationException exc) {
+        WebResponse<?> response = WebResponse.builder()
                 .message("Error")
                 .code(HttpStatus.BAD_REQUEST.value())
                 .errors(exc.getMessage()).build();
@@ -22,8 +22,8 @@ public class ErrorController extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<ResponseTemplate<?>> responseStatusException(ResponseStatusException exc) {
-        ResponseTemplate<?> response = ResponseTemplate.builder()
+    public ResponseEntity<WebResponse<?>> responseStatusException(ResponseStatusException exc) {
+        WebResponse<?> response = WebResponse.builder()
                 .message("Error")
                 .code(exc.getStatusCode().value())
                 .errors(exc.getReason()).build();
@@ -31,8 +31,8 @@ public class ErrorController extends ResponseEntityExceptionHandler {
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
-    public ResponseEntity<ResponseTemplate<?>> errorException(Exception exc) {
-        ResponseTemplate<?> response = ResponseTemplate.builder()
+    public ResponseEntity<WebResponse<?>> errorException(Exception exc) {
+        WebResponse<?> response = WebResponse.builder()
                 .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .errors(exc.getMessage()).build();
         return ResponseEntity.internalServerError().body(response);

@@ -1,7 +1,7 @@
 package com.nusalapak.controller;
 
 import com.nusalapak.dto.response.ProductCategoryResponse;
-import com.nusalapak.dto.response.ResponseTemplate;
+import com.nusalapak.dto.response.WebResponse;
 import com.nusalapak.service.ProductCategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,11 +20,11 @@ public class ProductCategoryController {
     private final ProductCategoryService productCategoryService;
 
     @GetMapping("")
-    public ResponseEntity<ResponseTemplate<?>> findAllCategory() {
+    public ResponseEntity<WebResponse<?>> findAllCategory() {
         List<ProductCategoryResponse> categories = productCategoryService.findAll();
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ResponseTemplate.builder()
+                .body(WebResponse.builder()
                         .code(HttpStatus.OK.value())
                         .message("Success")
                         .data(categories).build());

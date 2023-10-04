@@ -1,7 +1,7 @@
 package com.nusalapak.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nusalapak.dto.response.ResponseTemplate;
+import com.nusalapak.dto.response.WebResponse;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,7 +21,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        ResponseTemplate<?> webResponse = ResponseTemplate.builder()
+        WebResponse<?> webResponse = WebResponse.builder()
                 .code(HttpServletResponse.SC_FORBIDDEN)
                 .message("unauthorized")
                 .build();

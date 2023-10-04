@@ -4,7 +4,7 @@ FROM accounts;
 INSERT INTO roles(name)
 VALUES ('ROLE_ADMIN'),
        ('ROLE_SELLER'),
-       ('ROLE_CONSUMER');
+       ('ROLE_CUSTOMER');
 
 INSERT INTO accounts(id, email, password, role_id)
 VALUES (gen_random_uuid(), 'indar@gmail.com', '123', 2),

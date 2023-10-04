@@ -3,7 +3,6 @@ package com.nusalapak.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
 import java.util.UUID;
 
 @Setter
@@ -25,7 +24,7 @@ public class Account {
     @Column(nullable = false)
     private String password;
 
-    @Column(columnDefinition = "BOOLEAN DEFAULT TRUE")
+    @Column(columnDefinition = "BOOL DEFAULT true")
     private boolean isEnabled;
 
     @ManyToOne

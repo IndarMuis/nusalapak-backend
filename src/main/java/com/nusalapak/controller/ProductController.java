@@ -2,7 +2,7 @@ package com.nusalapak.controller;
 
 import com.nusalapak.dto.request.ProductCreateRequest;
 import com.nusalapak.dto.response.ProductCreateResponse;
-import com.nusalapak.dto.response.ResponseTemplate;
+import com.nusalapak.dto.response.WebResponse;
 import com.nusalapak.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,12 +22,12 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping("/add")
-    public ResponseEntity<ResponseTemplate<?>> add(@RequestBody ProductCreateRequest request) {
+    public ResponseEntity<WebResponse<?>> add(@RequestBody ProductCreateRequest request) {
 
         ProductCreateResponse productResponse = productService.addProduct(request);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ResponseTemplate.builder()
+                .body(WebResponse.builder()
                         .code(HttpStatus.CREATED.value())
                         .message("Success")
                         .data(productResponse)

@@ -58,6 +58,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((request) -> request
                         .requestMatchers("/api/v1/products/add").hasRole("SELLER")
                         .requestMatchers("/api/v1/seller/register",
+                                "/api/v1/customers/register",
                                 "/api/v1/account/login").permitAll()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
