@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/api/v1/product-category")
+@RequestMapping(path = "/api/v1/product-categories")
 public class ProductCategoryController {
 
     private final ProductCategoryService productCategoryService;
@@ -26,7 +26,7 @@ public class ProductCategoryController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(WebResponse.builder()
                         .code(HttpStatus.OK.value())
-                        .message("Success")
+                        .message("OK")
                         .data(categories).build());
     }
 

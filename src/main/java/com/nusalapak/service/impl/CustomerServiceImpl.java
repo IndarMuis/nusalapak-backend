@@ -27,6 +27,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     @Override
     public void create(CreateCustomerRequest request) {
+        if (!request.getPassword().equalsIgnoreCase(request.getConfirmPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "passwords are not the same");
+        }
+
         if (accountRepository.existsByEmail(request.getEmail())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "email is registered");
         }

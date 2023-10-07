@@ -46,7 +46,7 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(WebResponse.builder()
                         .code(HttpStatus.OK.value())
-                        .status("Success")
+                        .status("OK")
                         .data(response).build()
                 );
 

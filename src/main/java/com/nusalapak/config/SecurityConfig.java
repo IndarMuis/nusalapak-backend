@@ -57,9 +57,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((request) -> request
                         .requestMatchers("/api/v1/products/add").hasRole("SELLER")
-                        .requestMatchers("/api/v1/seller/register",
+                        .requestMatchers("/api/v1/sellers/register",
                                 "/api/v1/customers/register",
-                                "/api/v1/account/login").permitAll()
+                                "/api/v1/accounts/login",
+                                "/api/v1/product-categories"
+                                ).permitAll()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(Customizer.withDefaults());

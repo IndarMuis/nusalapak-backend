@@ -34,7 +34,7 @@ public class SellerController {
 
         WebResponse<?> response = WebResponse.builder()
                 .code(HttpStatus.CREATED.value())
-                .status("Success")
+                .status("CREATED")
                 .build();
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -49,7 +49,7 @@ public class SellerController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(WebResponse.builder()
                         .code(HttpStatus.CREATED.value())
-                        .message("Success")
+                        .message("CREATED")
                         .data(productResponse)
                         .build());
     }

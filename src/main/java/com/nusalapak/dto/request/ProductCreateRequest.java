@@ -22,6 +22,6 @@ public class ProductCreateRequest {
 
     private Integer amount;
 
-    private Integer categoryId;
+    private int categoryId;
 
 }

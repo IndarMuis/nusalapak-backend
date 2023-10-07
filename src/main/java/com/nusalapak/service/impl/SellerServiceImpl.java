@@ -29,7 +29,7 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public void create(CreateSellerRequest request) {
 
-        if (request.getPassword().equalsIgnoreCase(request.getConfirmPassword())) {
+        if (!request.getPassword().equalsIgnoreCase(request.getConfirmPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "passwords are not the same");
         }
 

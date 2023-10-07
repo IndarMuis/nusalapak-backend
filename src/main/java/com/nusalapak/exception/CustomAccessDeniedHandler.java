@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -22,8 +23,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         WebResponse<?> webResponse = WebResponse.builder()
-                .code(HttpServletResponse.SC_FORBIDDEN)
-                .message("forbidden")
+                .code(HttpStatus.FORBIDDEN.value())
+                .message("FORBIDDEN")
                 .build();
         String responseJson = objectMapper.writeValueAsString(webResponse);
 

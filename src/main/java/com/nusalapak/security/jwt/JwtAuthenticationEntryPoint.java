@@ -22,12 +22,12 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         WebResponse<?> webResponse = WebResponse.builder()
-                .code(HttpServletResponse.SC_FORBIDDEN)
-                .message("unauthorized")
+                .code(HttpServletResponse.SC_UNAUTHORIZED)
+                .message("UNAUTHORIZED")
                 .build();
         String responseJson = objectMapper.writeValueAsString(webResponse);
 
-        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(responseJson);

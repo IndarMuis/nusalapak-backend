@@ -29,7 +29,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(WebResponse.builder()
                         .code(HttpStatus.CREATED.value())
-                        .message("Success")
+                        .message("CREATED")
                         .data(productResponse)
                         .build());
     }

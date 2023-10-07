@@ -42,6 +42,6 @@ public class Product {
     private Seller seller;
 
     @Column(columnDefinition = "INTEGER DEFAULT 0")
-    private Integer quantity;
+    private int quantity;
 
 }

@@ -24,7 +24,7 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 WebResponse.builder()
                         .code(HttpStatus.CREATED.value())
-                        .message("Success").build()
+                        .message("CREATED").build()
         );
     }
 
