@@ -3,6 +3,7 @@ package com.nusalapak.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Setter
@@ -29,5 +30,8 @@ public class Customer {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
+    private List<ShoppingCart> shoppingCartList;
 
 }

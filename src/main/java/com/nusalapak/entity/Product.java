@@ -41,4 +41,7 @@ public class Product {
     @JoinColumn(name = "seller_id")
     private Seller seller;
 
+    @Column(columnDefinition = "INTEGER DEFAULT 0")
+    private Integer quantity;
+
 }
