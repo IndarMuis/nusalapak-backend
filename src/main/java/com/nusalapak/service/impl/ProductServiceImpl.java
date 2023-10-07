@@ -2,6 +2,7 @@ package com.nusalapak.service.impl;
 
 import com.nusalapak.dto.request.ProductCreateRequest;
 import com.nusalapak.dto.response.ProductCreateResponse;
+import com.nusalapak.dto.response.ProductResponse;
 import com.nusalapak.entity.Product;
 import com.nusalapak.entity.ProductCategory;
 import com.nusalapak.entity.Seller;
@@ -19,7 +20,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -68,4 +72,21 @@ public class ProductServiceImpl implements ProductService {
                 .category(productCategory.getName())
                 .seller(seller.getName()).build();
     }
+
+    @Override
+    public List<ProductResponse> findAll() {
+
+        List<Product> products = productRepository.findAll();
+
+        return products.stream().map(product -> ProductResponse.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .price(formatter.priceToIDR(product.getPrice()))
+                .description(product.getDescription())
+                .category(product.getProductCategory().getName())
+                .seller(product.getSeller().getName())
+                .quantity(product.getQuantity()).build()).collect(Collectors.toList());
+    }
+
+
 }
