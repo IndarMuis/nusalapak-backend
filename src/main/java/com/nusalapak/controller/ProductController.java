@@ -25,6 +25,7 @@ public class ProductController {
     @PostMapping("/add")
     public ResponseEntity<WebResponse<?>> add(@RequestBody ProductCreateRequest request) {
 
+        log.info("REQUEST ", request);
         ProductCreateResponse productResponse = productService.addProduct(request);
 
         return ResponseEntity.status(HttpStatus.CREATED)

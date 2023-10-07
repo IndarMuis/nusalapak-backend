@@ -1,8 +1,8 @@
-package com.nusalapak.dto.response;
+package com.nusalapak.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,20 +15,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProductResponse {
+public class CreateOrderDetailsRequest {
 
-    private UUID id;
+    @NotNull
+    private UUID productId;
 
-    private String name;
+    private Integer quantity;
 
-    private String price;
-
-    private String description;
-
-    private String category;
-
-    private String seller;
-
-    private int amount;
 }

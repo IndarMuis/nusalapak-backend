@@ -83,7 +83,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponse findById(UUID id) {
         Product product = productRepository.findById(id).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "DATA NOT FOUND")
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "product not found")
         );
         return mapToProductResponse(product);
     }
@@ -96,7 +96,7 @@ public class ProductServiceImpl implements ProductService {
                 .description(product.getDescription())
                 .category(product.getProductCategory().getName())
                 .seller(product.getSeller().getName())
-                .quantity(product.getQuantity()).build();
+                .amount(product.getAmount()).build();
     }
 
 

@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "order_details")
-public class OrderDetails {
+public class OrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class OrderDetails {
     @JoinColumn(name = "seller_id", referencedColumnName = "id")
     private Seller seller;
 
-    @Column(columnDefinition = "INTEGER DEFAULT 0")
+    @Column(columnDefinition = "INTEGER DEFAULT 1")
     private Integer quantity;
 
 }

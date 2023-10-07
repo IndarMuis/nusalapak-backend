@@ -34,4 +34,7 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
     private List<ShoppingCart> shoppingCartList;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orders;
+
 }
