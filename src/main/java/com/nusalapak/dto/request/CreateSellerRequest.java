@@ -29,6 +29,9 @@ public class CreateSellerRequest {
     @NotBlank
     private String password;
 
+    @NotBlank
+    private String confirmPassword;
+
     private String address;
 
 }

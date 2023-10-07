@@ -2,6 +2,7 @@ package com.nusalapak.dto.request;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import jakarta.validation.Constraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,9 @@ public class CreateCustomerRequest {
 
     @NotBlank
     private String password;
+
+    @NotBlank
+    private String confirmPassword;
 
     private String address;
 
