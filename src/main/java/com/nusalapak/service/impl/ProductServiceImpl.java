@@ -20,9 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,10 +49,10 @@ public class ProductServiceImpl implements ProductService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "product is already on the list");
         }
 
-            ProductCategory productCategory = productCategoryRepository.findById(request.getCategoryId())
-                    .orElseThrow(
-                            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "category not found")
-                    );
+        ProductCategory productCategory = productCategoryRepository.findById(request.getCategoryId())
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "category not found")
+                );
 
         Product product = Product.builder()
                 .name(request.getName())
@@ -78,14 +77,26 @@ public class ProductServiceImpl implements ProductService {
 
         List<Product> products = productRepository.findAll();
 
-        return products.stream().map(product -> ProductResponse.builder()
+        return products.stream().map(this::mapToProductResponse).collect(Collectors.toList());
+    }
+
+    @Override
+    public ProductResponse findById(UUID id) {
+        Product product = productRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "DATA NOT FOUND")
+        );
+        return mapToProductResponse(product);
+    }
+
+    private ProductResponse mapToProductResponse(Product product) {
+        return ProductResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .price(formatter.priceToIDR(product.getPrice()))
                 .description(product.getDescription())
                 .category(product.getProductCategory().getName())
                 .seller(product.getSeller().getName())
-                .quantity(product.getQuantity()).build()).collect(Collectors.toList());
+                .quantity(product.getQuantity()).build();
     }
 
 

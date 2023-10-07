@@ -61,7 +61,7 @@ public class SecurityConfig {
                                 "/api/v1/customers/register",
                                 "/api/v1/accounts/login",
                                 "/api/v1/product-categories",
-                                "/api/v1/products"
+                                "/api/v1/products/*"
                                 ).permitAll()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -20,6 +21,19 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+
+    @PostMapping("/add")
+    public ResponseEntity<WebResponse<?>> add(@RequestBody ProductCreateRequest request) {
+
+        ProductCreateResponse productResponse = productService.addProduct(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(WebResponse.builder()
+                        .code(HttpStatus.CREATED.value())
+                        .message("CREATED")
+                        .data(productResponse)
+                        .build());
+    }
 
     @GetMapping("")
     public ResponseEntity<WebResponse<?>> findAll() {
@@ -33,17 +47,16 @@ public class ProductController {
         );
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<WebResponse<?>> add(@RequestBody ProductCreateRequest request) {
+    @GetMapping("/{id}")
+    public ResponseEntity<WebResponse<?>> findById(@PathVariable("id") UUID id) {
+        ProductResponse productResponse = productService.findById(id);
 
-        ProductCreateResponse productResponse = productService.addProduct(request);
-
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(WebResponse.builder()
-                        .code(HttpStatus.CREATED.value())
-                        .message("CREATED")
-                        .data(productResponse)
-                        .build());
+        return ResponseEntity.status(HttpStatus.OK).body(
+                WebResponse.builder()
+                        .code(HttpStatus.OK.value())
+                        .message("OK")
+                        .data(productResponse).build()
+        );
     }
 
 }
