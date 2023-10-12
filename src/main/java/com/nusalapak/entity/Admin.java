@@ -3,35 +3,26 @@ package com.nusalapak.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "sellers")
-public class Seller {
+@Table(name = "admin")
+public class Admin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false, columnDefinition = "varchar(200)")
     private String name;
 
-    @Column(nullable = false, columnDefinition = "varchar(50)")
     private String phone;
-
-    private String address;
 
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
-
-    @OneToMany(mappedBy = "seller")
-    private List<Product> products;
-
 }

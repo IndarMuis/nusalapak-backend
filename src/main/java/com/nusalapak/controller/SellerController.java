@@ -6,6 +6,8 @@ import com.nusalapak.dto.response.ProductCreateResponse;
 import com.nusalapak.dto.response.WebResponse;
 import com.nusalapak.service.ProductService;
 import com.nusalapak.service.SellerService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/v1/sellers")
+@Tag(name = "Seller Resources")
 public class SellerController {
 
     private final SellerService sellerService;
@@ -41,6 +44,7 @@ public class SellerController {
 
     }
 
+    @SecurityRequirement(name = "BearerAuth")
     @PostMapping("/create")
     public ResponseEntity<WebResponse<?>> addProduct(@RequestBody ProductCreateRequest request) {
 

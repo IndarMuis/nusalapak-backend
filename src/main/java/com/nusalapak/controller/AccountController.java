@@ -5,6 +5,7 @@ import com.nusalapak.dto.response.AccountLoginResponse;
 import com.nusalapak.dto.response.WebResponse;
 import com.nusalapak.security.jwt.JwtService;
 import com.nusalapak.service.impl.UserDetailsServiceImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/accounts")
+@Tag(name = "Account Resources")
 public class AccountController {
 
     private final JwtService jwtService;
